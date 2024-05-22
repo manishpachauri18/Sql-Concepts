@@ -1,0 +1,42 @@
+-- Create the Sales table
+CREATE TABLE Sales (
+    id INT PRIMARY KEY,
+    year INT,
+    product VARCHAR2(50),
+    sales INT
+);
+
+-- Insert sample data into the Sales table
+INSERT ALL
+    INTO Sales (id, year, product, sales) VALUES (1, 2020, 'Keyboard', 100)
+    INTO Sales (id, year, product, sales) VALUES (2, 2020, 'Mouse', 150)
+    INTO Sales (id, year, product, sales) VALUES (3, 2020, 'Monitor', 200)
+    INTO Sales (id, year, product, sales) VALUES (4, 2020, 'Headphones', 120)
+    INTO Sales (id, year, product, sales) VALUES (5, 2020, 'Mousepad', 80)
+    INTO Sales (id, year, product, sales) VALUES (6, 2021, 'Keyboard', 120)
+    INTO Sales (id, year, product, sales) VALUES (7, 2021, 'Mouse', 180)
+    INTO Sales (id, year, product, sales) VALUES (8, 2021, 'Monitor', 250)
+    INTO Sales (id, year, product, sales) VALUES (9, 2021, 'Headphones', 150)
+    INTO Sales (id, year, product, sales) VALUES (10, 2021, 'Mousepad', 100)
+    INTO Sales (id, year, product, sales) VALUES (11, 2022, 'Keyboard', 150)
+    INTO Sales (id, year, product, sales) VALUES (12, 2022, 'Mouse', 200)
+    INTO Sales (id, year, product, sales) VALUES (13, 2022, 'Monitor', 280)
+    INTO Sales (id, year, product, sales) VALUES (14, 2022, 'Headphones', 180)
+    INTO Sales (id, year, product, sales) VALUES (15, 2022, 'Mousepad', 120)
+    INTO Sales (id, year, product, sales) VALUES (16, 2023, 'Keyboard', 180)
+    INTO Sales (id, year, product, sales) VALUES (17, 2023, 'Mouse', 220)
+    INTO Sales (id, year, product, sales) VALUES (18, 2023, 'Monitor', 320)
+    INTO Sales (id, year, product, sales) VALUES (19, 2023, 'Headphones', 200)
+    INTO Sales (id, year, product, sales) VALUES (20, 2023, 'Mousepad', 150)
+SELECT 1 FROM DUAL;
+
+select * from sales;
+SELECT *
+FROM (
+    SELECT year,product,sales
+    FROM Sales
+)
+PIVOT (
+    SUM(sales)
+    FOR product IN ('Keyboard' AS Keyboard, 'Mouse' AS Mouse, 'Monitor' AS Monitor, 'Headphones' AS Headphones, 'Mousepad' AS Mousepad)
+)  order by year;
