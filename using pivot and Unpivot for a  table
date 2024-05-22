@@ -40,3 +40,28 @@ PIVOT (
     SUM(sales)
     FOR product IN ('Keyboard' AS Keyboard, 'Mouse' AS Mouse, 'Monitor' AS Monitor, 'Headphones' AS Headphones, 'Mousepad' AS Mousepad)
 )  order by year;
+SELECT year,
+       product,
+       sales
+FROM (
+    SELECT year,
+           Keyboard,
+           Mouse,
+           Monitor,
+           Headphones,
+           Mousepad
+    FROM (
+        SELECT year,
+               product,
+               sales
+        FROM Sales
+    )
+    PIVOT (
+        SUM(sales)
+        FOR product IN ('Keyboard' AS Keyboard, 'Mouse' AS Mouse, 'Monitor' AS Monitor, 'Headphones' AS Headphones, 'Mousepad' AS Mousepad)
+    )
+)
+UNPIVOT (
+    sales
+    FOR product IN (Keyboard, Mouse, Monitor, Headphones, Mousepad)
+);
